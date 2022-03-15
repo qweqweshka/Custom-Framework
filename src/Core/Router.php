@@ -3,7 +3,7 @@
 namespace src\Core;
 
 
-use src\Controllers\Controller;
+use src\Core\Classes\Controller;
 
 class Router
 {

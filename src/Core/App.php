@@ -2,6 +2,8 @@
 
 namespace src\Core;
 
+use src\Core\Classes\Request;
+
 class App
 {
 
@@ -15,6 +17,7 @@ class App
         $this->setConfig();
         $this->startDB();
         $this->startRouter();
+        $this->buildRequest();
     }
 
     private function startDB()
@@ -49,4 +52,10 @@ class App
         return self::$selfInstance;
     }
 
+    private function buildRequest()
+    {
+        Request::singleton();
+      debug(request()->get('test'));
+
+    }
 }

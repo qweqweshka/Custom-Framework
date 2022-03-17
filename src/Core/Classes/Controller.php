@@ -10,4 +10,6 @@ abstract class Controller
         $viewClass->setData($data);
         $viewClass->load();
     }
+
+
 }

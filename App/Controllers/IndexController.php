@@ -11,6 +11,6 @@ class IndexController extends Controller
     public function execute()
     {
         $data['test'] = 'Test';
-        $this->render('Test' , $data);
+        $this->render('L1.L2.L3.test' , $data);
     }
 }

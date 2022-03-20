@@ -4,5 +4,8 @@
       "src\\": "src",
       "App\\": "App"
     }
+  },
+  "require": {
+    "ext-pdo": "*"
   }
 }

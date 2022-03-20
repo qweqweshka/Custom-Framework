@@ -2,5 +2,5 @@
 
 return [
     '/' => [\App\Controllers\IndexController::class, 'execute'],
-    '/login' => ['ControllerName'],
+    '/login' => [\App\Controllers\LoginController::class, 'execute'],
 ];

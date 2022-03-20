@@ -9,6 +9,7 @@ abstract class Model
 {
     private string $table;
     private $connection;
+    private $sql;
 
     public function __construct()
     {
@@ -34,20 +35,74 @@ abstract class Model
 
     }
 
-    public function select(array $params, string $where)
+    public static function all()
     {
-        if (!empty($params)) {
-            try {
-                $columns = implode(',', array_values($params));
-                $sql = 'SELECT ' . $columns . ' FROM ' . $this->table . ' WHERE ' . $where;
-                $res = $this->connection->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-                return $res;
-            } catch (\PDOException $e) {
-                return false;
-            }
+        $class = new static();
+
+        try {
+            $sql = 'SELECT * FROM ' . $class->table;
+            return $class->connection->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+    public static function select($value = null)
+    {
+        $class = new static();
+        if (is_string($value)) {
+            $class->sql = 'SELECT ' . $value . ' FROM ' . $class->table;
+        }
+        if (is_array($value)) {
+            $columns = implode(',', array_values($value));
+            $class->sql = 'SELECT ' . $columns . ' FROM ' . $class->table;
+        } else {
+            $class->sql = 'SELECT * FROM ' . $class->table;
 
         }
-        return false;
+        return $class;
+    }
+
+
+    public function where($params)
+    {
+        $this->sql .= ' WHERE ' . $params;
+        return $this;
+    }
+
+    public function limit($value)
+    {
+        $this->sql .= ' LIMIT ' . $value;
+        return $this;
+    }
+
+    public function paginate($perPage)
+    {
+        $page = Request()->get('page');
+        if (empty($page)) {
+            $page = 1;
+        }
+        $offset = $perPage * ($page - 1);
+        $sql = $this->sql . " LIMIT $offset, $perPage";
+        try{
+           $result['items'] = $this->connection->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+           $result['currentPage'] = $page;
+           $result['totalItems'] = $this->connection->query(preg_replace('#SELECT([^.]*)FROM#', 'SELECT COUNT(*) FROM' , $this->sql))->fetch()[0];
+           $result['totalPages'] = ceil($result['totalItems'] / $perPage);
+           return $result;
+        } catch (\PDOException $e){
+            return false;
+        }
+    }
+
+    public function get()
+    {
+        try {
+            return $this->connection->query($this->sql)->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            return false;
+        }
+
     }
 
     public function update(array $params, string $where)

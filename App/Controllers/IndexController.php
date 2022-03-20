@@ -3,14 +3,15 @@
 namespace App\Controllers;
 
 
+use App\Models\Users;
 use src\Core\Classes\Controller;
-use App\Models\User;
+
 
 class IndexController extends Controller
 {
     public function execute()
     {
-        $data['test'] = 'Test';
-        $this->render('L1.L2.L3.test' , $data);
+//$user = new Users();
+        debug(Users::select()->where('id>0')->paginate(2));
     }
 }

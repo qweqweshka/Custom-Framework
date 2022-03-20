@@ -2,6 +2,7 @@
 
 
 use src\Core\Classes\Request;
+use src\Core\Classes\Session;
 
 if (!function_exists('debug')) {
     function debug($data)
@@ -35,5 +36,12 @@ if (!function_exists('request')) {
     function request()
     {
         return Request::singleton();
+    }
+}
+
+if (!function_exists('session')) {
+    function session()
+    {
+        return Session::singleton();
     }
 }

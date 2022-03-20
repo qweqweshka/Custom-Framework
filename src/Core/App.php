@@ -3,6 +3,7 @@
 namespace src\Core;
 
 use src\Core\Classes\Request;
+use src\Core\Classes\Session;
 
 class App
 {
@@ -16,6 +17,7 @@ class App
     {
         $this->setConfig();
         $this->startDB();
+        $this->buildSession();
         $this->startRouter();
         $this->buildRequest();
     }
@@ -55,7 +57,12 @@ class App
     private function buildRequest()
     {
         Request::singleton();
-      debug(request()->get('test'));
 
     }
+
+    private function buildSession()
+    {
+        Session::singleton();
+    }
+
 }

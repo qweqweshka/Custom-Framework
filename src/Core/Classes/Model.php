@@ -52,8 +52,7 @@ abstract class Model
         $class = new static();
         if (is_string($value)) {
             $class->sql = 'SELECT ' . $value . ' FROM ' . $class->table;
-        }
-        if (is_array($value)) {
+        } elseif (is_array($value)) {
             $columns = implode(',', array_values($value));
             $class->sql = 'SELECT ' . $columns . ' FROM ' . $class->table;
         } else {
@@ -64,9 +63,9 @@ abstract class Model
     }
 
 
-    public function where($params)
+    public function where(array $params)
     {
-        $this->sql .= ' WHERE ' . $params;
+        $this->sql .= " WHERE $params[0]$params[1]'$params[2]'";
         return $this;
     }
 
@@ -84,13 +83,13 @@ abstract class Model
         }
         $offset = $perPage * ($page - 1);
         $sql = $this->sql . " LIMIT $offset, $perPage";
-        try{
-           $result['items'] = $this->connection->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-           $result['currentPage'] = $page;
-           $result['totalItems'] = $this->connection->query(preg_replace('#SELECT([^.]*)FROM#', 'SELECT COUNT(*) FROM' , $this->sql))->fetch()[0];
-           $result['totalPages'] = ceil($result['totalItems'] / $perPage);
-           return $result;
-        } catch (\PDOException $e){
+        try {
+            $result['items'] = $this->connection->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+            $result['currentPage'] = $page;
+            $result['totalItems'] = $this->connection->query(preg_replace('#SELECT([^.]*)FROM#', 'SELECT COUNT(*) FROM', $this->sql))->fetch()[0];
+            $result['totalPages'] = ceil($result['totalItems'] / $perPage);
+            return $result;
+        } catch (\PDOException $e) {
             return false;
         }
     }
@@ -98,14 +97,23 @@ abstract class Model
     public function get()
     {
         try {
+//            return $this->sql;
             return $this->connection->query($this->sql)->fetchAll(PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
             return false;
         }
-
     }
 
-    public function update(array $params, string $where)
+    public function getOne()
+    {
+        try {
+            return $this->connection->query($this->sql)->fetch(PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+    public function update(array $params, array $where)
     {
         if (!empty($params)) {
             try {
@@ -114,8 +122,8 @@ abstract class Model
                     $sql .= $key . "='" . $value . "', ";
                 }
                 $sql = substr_replace($sql, "", -2);
-                $sql .= ' WHERE ' . $where;
-
+                $sql .= " WHERE $where[0]$where[1]'$where[2]'";
+//                return $sql;
                 $this->connection->query($sql);
             } catch (\PDOException $e) {
                 return false;
@@ -142,4 +150,5 @@ abstract class Model
         }
         return false;
     }
+
 }

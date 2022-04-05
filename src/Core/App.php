@@ -20,6 +20,8 @@ class App
         $this->buildSession();
         $this->startRouter();
         $this->buildRequest();
+
+
     }
 
     private function startDB()
@@ -57,7 +59,6 @@ class App
     private function buildRequest()
     {
         Request::singleton();
-
     }
 
     private function buildSession()

@@ -7,11 +7,13 @@ class Request
     private static Request $selfInstance;
     private array $get;
     private array $post;
+    private $files;
 
     public function __construct()
     {
         $this->post = $_POST;
         $this->get = $_GET;
+        $this->files = $_FILES;
     }
 
     public function get($key)
@@ -24,9 +26,14 @@ class Request
         return $this->post[$key];
     }
 
+    public function file($key)
+    {
+        return $this->files[$key];
+    }
+
     public function all()
     {
-        return array_merge($this->post , $this->get);
+        return array_merge($this->post, $this->get);
     }
 
 

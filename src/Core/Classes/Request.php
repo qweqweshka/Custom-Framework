@@ -18,7 +18,10 @@ class Request
 
     public function get($key)
     {
-        return $this->get[$key];
+        if(array_key_exists($key, $this->get)) {
+            return $this->get[$key];
+        }
+        return null;
     }
 
     public function post($key)

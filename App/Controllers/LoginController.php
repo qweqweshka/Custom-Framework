@@ -21,7 +21,9 @@ class LoginController extends Controller
         $service = new LoginService();
         if ($service->authentication()) {
             $service->login();
-            $service->userCookie();
+            if($service->checkRemember()){
+                $service->userCookie();
+            }
             $this->redirectTo('/');
         } else {
             $this->redirectBack();

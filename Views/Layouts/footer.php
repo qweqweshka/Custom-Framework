@@ -1,4 +1,5 @@
 
+
 <footer class="bg-light text-center text-lg-start">
     <!-- Grid container -->
     <div class="container p-4">
@@ -12,15 +13,6 @@
                     <li>
                         <a href="#!" class="text-dark">Link 1</a>
                     </li>
-                    <li>
-                        <a href="#!" class="text-dark">Link 2</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-dark">Link 3</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-dark">Link 4</a>
-                    </li>
                 </ul>
             </div>
             <!--Grid column-->
@@ -32,15 +24,6 @@
                 <ul class="list-unstyled">
                     <li>
                         <a href="#!" class="text-dark">Link 1</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-dark">Link 2</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-dark">Link 3</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-dark">Link 4</a>
                     </li>
                 </ul>
             </div>
@@ -54,15 +37,6 @@
                     <li>
                         <a href="#!" class="text-dark">Link 1</a>
                     </li>
-                    <li>
-                        <a href="#!" class="text-dark">Link 2</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-dark">Link 3</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-dark">Link 4</a>
-                    </li>
                 </ul>
             </div>
             <!--Grid column-->
@@ -74,15 +48,6 @@
                 <ul class="list-unstyled">
                     <li>
                         <a href="#!" class="text-dark">Link 1</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-dark">Link 2</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-dark">Link 3</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-dark">Link 4</a>
                     </li>
                 </ul>
             </div>

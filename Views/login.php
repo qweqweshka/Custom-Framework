@@ -26,7 +26,7 @@
                                 </div>
                             <?endif;?>
                             <div class="form-outline mb-4">
-                                <input type="email" id="typeEmailX-2" name="email" class="form-control form-control-lg" />
+                                <input type="email" id="typeEmailX-2" <?if(cookie()->check('email'))?> value="<?=cookie()->get('email')?>" name="email" class="form-control form-control-lg" />
                                 <label class="form-label" for="typeEmailX-2">Email</label>
                             </div>
                             <? if (session()->checkErrors('pass')): ?>
@@ -35,7 +35,7 @@
                                 </div>
                             <?endif;?>
                             <div class="form-outline mb-4">
-                                <input type="password" id="typePasswordX-2" name="pass" class="form-control form-control-lg" />
+                                <input type="password" id="typePasswordX-2" <?if(cookie()->check('password'))?> value="<?=cookie()->get('password')?>" name="pass" class="form-control form-control-lg" />
                                 <label class="form-label" for="typePasswordX-2">Password</label>
                             </div>
 

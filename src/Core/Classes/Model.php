@@ -77,10 +77,7 @@ abstract class Model
 
     public function paginate($perPage)
     {
-        $page = Request()->get('page');
-        if (empty($page)) {
-            $page = 1;
-        }
+        $page = Request()->get('page') ?? 1;
         $offset = $perPage * ($page - 1);
         $sql = $this->sql . " LIMIT $offset, $perPage";
         try {
@@ -132,9 +129,9 @@ abstract class Model
         return false;
     }
 
-    public function delete($where)
+    public function delete(array $where)
     {
-        $sql = 'DELETE FROM ' . $this->table . ' WHERE ' . $where;
+        $sql = 'DELETE FROM ' . $this->table . " WHERE $where[0]$where[1]'$where[2]'";
         $this->connection->query($sql);
     }
 

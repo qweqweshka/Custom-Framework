@@ -21,7 +21,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Link</a>
@@ -40,14 +40,36 @@
             <li class="nav-item">
                 <a class="nav-link disabled" href="#">Disabled</a>
             </li>
+            <li>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <?if(session()->get('auth') == true):?>
+        <div class="pr-5">
+            <a href="create" type="button" class="btn btn-success">New post</a>
+        </div>
+<div class="pr-2">
+        <a href="profile">
+            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" width="32" height="32" class="rounded-circle me-2">
+            <strong>Profile</strong>
+        </a>
+</div>
+        <div class="pr-4">
+        <a href="logout" class="btn btn-danger" width="32" height="32">Logout</a>
+        </div>
+        <?else:?>
+            <div class="pr-4">
+                <a href="login" class="btn btn-primary" width="32" height="32">Login</a>
+            </div>
+<?endif;?>
     </div>
 </nav>
 </div>
+
+
 <main>
 <div id = sidebar>
 <div class="d-flex float-left flex-column flex-shrink-0 p-3 bg-light fixed-top" style="width: 11%; height: 100%;">
@@ -89,18 +111,5 @@
         </li>
     </ul>
     <hr>
-    <div class="dropdown">
-        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-            <strong>mdo</strong>
-        </a>
-        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-            <li><a class="dropdown-item" href="#">New project...</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
-        </ul>
-    </div>
 </div>
 </div>

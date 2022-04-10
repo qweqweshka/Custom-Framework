@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 
+use App\Models\Articles;
 use App\Models\Users;
 use src\Core\Classes\Controller;
 use src\Core\Classes\Request;
@@ -13,7 +14,8 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $data['test'] = 'Test';
-        $this->render('test' , $data);
+        $articles = new Articles();
+       $data = $articles->select(['id', 'name', 'text', 'user_id', 'file_path', 'status'])->paginate(8);
+        $this->render('index' , $data);
     }
 }

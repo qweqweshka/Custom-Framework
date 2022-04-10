@@ -21,7 +21,7 @@ class RegisterService
             $password = md5($salt . $request['pass1']);
             $user = new Users();
           $res = $user->create(['name' => '', 'login' => $request['login'], 'email' => $request['email'], 'password' => $password,
-              'salt' => $salt,'user_hash' => '', 'phone' => '']);
+              'salt' => $salt, 'phone' => '']);
           session()->set('id', $res);
     }
 

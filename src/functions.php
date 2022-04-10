@@ -1,6 +1,8 @@
 <?php
 
 
+use src\Core\App;
+use src\Core\Classes\Cookie;
 use src\Core\Classes\Request;
 use src\Core\Classes\Session;
 use src\Core\Classes\Storage;
@@ -54,6 +56,13 @@ if (!function_exists('storage')) {
     }
 }
 
+if (!function_exists('cookie')) {
+    function cookie()
+    {
+        return Cookie::singleton();
+    }
+}
+
 if (!function_exists('generateSalt')) {
     function generateSalt()
     {
@@ -79,3 +88,75 @@ if (!function_exists('old')) {
         }
     }
 }
+
+if (!function_exists('route')) {
+    function route($path, $data = null)
+    {
+        if (!empty($data)) {
+            $path .= '?' . http_build_query($data);
+        }
+        return $path;
+    }
+}
+
+if (!function_exists('isAdmin')) {
+    function isAdmin()
+    {
+        if (\session()->get('auth') == true) {
+            $id = \session()->get('id');
+            $user = new \App\Models\Users();
+            $result = $user->select('user_role')->where(['id', '=', $id])->getOne();
+            if ($result['user_role'] == 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+if (!function_exists('isModerator')) {
+    function isModerator()
+    {
+        if (\session()->get('auth') == true) {
+            $id = \session()->get('id');
+            $user = new \App\Models\Users();
+            $result = $user->select('user_role')->where(['id', '=', $id])->getOne();
+            if ($result['user_role'] == 2) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+
+function generateRandom($length)
+{
+    $chars = 'abdefhiknrstyzABDEFGHKNQRSTYZ23456789';
+    $numChars = strlen($chars);
+    $string = '';
+    for ($i = 0; $i < $length; $i++) {
+        $string .= substr($chars, rand(1, $numChars) - 1, 1);
+    }
+    return $string;
+}
+
+function seedArticles()
+{
+    for ($i = 1; $i <= 30; $i++) {
+        $name = generateRandom(rand(10, 30));
+        $text = generateRandom(rand(100, 240));
+        $sql = "INSERT INTO articles (name, text, file_path) VALUES ('$name', '$text', 'test.jpg')";
+        $connection = App::singleton()->getConnection();
+        $connection->query($sql);
+    }
+}
+
+function clearArticles()
+{
+    $sql = "DELETE FROM articles WHERE id>0";
+    $connection = App::singleton()->getConnection();
+    $connection->query($sql);
+}
+
+

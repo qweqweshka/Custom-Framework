@@ -24,12 +24,9 @@ class LoginService
 
     public function userCookie()
     {
-        $hash = generateSalt();
-        setcookie('hash', $hash, (time() + 86400) * 7);
-        $user = new Users();
         $request = request()->all();
-        $user->update(['user_hash' => $hash], ['email', '=', $request['email']]);
-
+        setcookie('email', $request['email'], (time() + 86400) * 7);
+        setcookie('password', $request['pass'], (time() + 86400) * 7);
     }
 
     public function checkRemember()

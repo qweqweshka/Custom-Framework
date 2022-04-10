@@ -3,6 +3,7 @@
     position: sticky;
     top: 0;
     left: 0;
+    z-index: 10;
 
 }
 
@@ -24,4 +25,24 @@ main {
 
 #register, #login {
     background-color: #a1a1a1;
+}
+
+.card {
+    min-height: 530px;
+}
+
+.card-fix {
+    min-height: 715px;
+    max-width: 1000px;
+    margin-bottom: 15px;
+}
+
+.card-fix-edit {
+    min-height: 680px;
+    max-width: 1000px;
+    margin-bottom: 15px;
+}
+
+.pagination {
+    justify-content: center;
 }

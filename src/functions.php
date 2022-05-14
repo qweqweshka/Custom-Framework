@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Models\Articles;
 use src\Core\App;
 use src\Core\Classes\Cookie;
 use src\Core\Classes\Request;
@@ -128,6 +129,17 @@ if (!function_exists('isModerator')) {
         return false;
     }
 }
+
+
+if (!function_exists('postsCount')) {
+    function postsCount($id)
+    {
+        $article = new Articles();
+        $result = count($article->select()->where(['user_id', '=', $id])->get());
+        return $result;
+    }
+}
+
 
 
 function generateRandom($length)

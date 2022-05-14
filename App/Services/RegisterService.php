@@ -20,7 +20,7 @@ class RegisterService
             $salt = generateSalt();
             $password = md5($salt . $request['pass1']);
             $user = new Users();
-          $res = $user->create(['name' => '', 'login' => $request['login'], 'email' => $request['email'], 'password' => $password,
+          $res = $user->create(['name' => '','surname' => '', 'file_path' => '', 'login' => $request['login'], 'email' => $request['email'], 'password' => $password,
               'salt' => $salt, 'phone' => '']);
           session()->set('id', $res);
     }

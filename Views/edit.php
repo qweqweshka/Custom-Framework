@@ -24,9 +24,19 @@
                             <textarea name="text" placeholder="Post text" id="text" class="form-control"
                                       rows="10"><?=$data['text']?></textarea>
                         </div>
+
                         <div class="form-group">
-                            <input type="file" class="form-control-file" id="file_path" name="file_path">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Upload image</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="file_path" name="file_path">
+                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="form-group">
                             <input type="submit" value="Save" class="btn btn-success">
                             <a href="/" class="btn btn-primary">To list</a>

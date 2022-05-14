@@ -65,14 +65,36 @@ abstract class Model
 
     public function where(array $params)
     {
-        $this->sql .= " WHERE $params[0]$params[1]'$params[2]'";
-        return $this;
+        if ($params[2] == 'NULL') {
+            $this->sql .= " WHERE $params[0] $params[1] $params[2]";
+            return $this;
+        } else {
+            $this->sql .= " WHERE $params[0]$params[1]'$params[2]'";
+            return $this;
+        }
     }
 
     public function limit($value)
     {
         $this->sql .= ' LIMIT ' . $value;
         return $this;
+    }
+
+    public function paginate1($perPage)
+    {
+        $page = Request()->post('page') ?? 1;
+        $offset = $perPage * ($page - 1);
+        $sql = $this->sql . " LIMIT $offset, $perPage";
+        try {
+            $result['items'] = $this->connection->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+            $result['currentPage'] = $page;
+            $result['totalItems'] = $this->connection->query(preg_replace('#SELECT([^.]*)FROM#', 'SELECT COUNT(*) FROM', $this->sql))->fetch()[0];
+            $result['totalPages'] = ceil($result['totalItems'] / $perPage);
+            return $result;
+        } catch (\PDOException $e) {
+//            return $sql;
+            return false;
+        }
     }
 
     public function paginate($perPage)
@@ -87,6 +109,7 @@ abstract class Model
             $result['totalPages'] = ceil($result['totalItems'] / $perPage);
             return $result;
         } catch (\PDOException $e) {
+//            return $sql;
             return false;
         }
     }

@@ -43,10 +43,17 @@ final class View
         $this->data = $data;
     }
 
-    public function load()
+    public function load($html = false)
     {
         $data = $this->data;
-        include $this->path;
+        if($html){
+          ob_start();
+            include $this->path;
+            $test = ob_get_clean();
+            return $test;
+        } else {
+            include $this->path;
+        }
     }
 
 

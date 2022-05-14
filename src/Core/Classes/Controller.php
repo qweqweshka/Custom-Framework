@@ -4,15 +4,16 @@ namespace src\Core\Classes;
 
 abstract class Controller
 {
-    public function render($view, $data = [])
+    public function render($view, $data = [], $html = false)
     {
         $viewClass = new View($view);
         $viewClass->setData($data);
-        $viewClass->load();
+
 
 
         session()->clearErrors();
         session()->clearForm();
+        return $viewClass->load($html);
     }
 
     public function redirectBack()
@@ -20,14 +21,20 @@ abstract class Controller
         header('Location:' . $_SERVER['HTTP_REFERER']);
     }
 
-    public function redirectTo($path , $data = null)
+    public function redirectTo($path, $data = null)
     {
         $header = 'Location:' . $path;
-        if(!empty($data)) {
+        if (!empty($data)) {
             $header .= '?' . http_build_query($data);
         }
         header($header);
 
+    }
+
+    public function loadView($view, $vars = [])
+    {
+        extract($vars);
+$viewClass = new View($view);
     }
 
 }

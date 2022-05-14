@@ -68,4 +68,21 @@ class ArticleController extends Controller
         $article->delete(['id', '=', $request['id']]);
         $this->redirectTo('/');
     }
+
+    public function posts()
+    {
+        $request = \request()->all();
+        $article = new Articles();
+        $data = $article->select()->where(['user_id', '=', $request['id']])->get();
+        $this->render('posts', $data);
+    }
+
+    public function block()
+    {
+        $request = \request()->all();
+        $article = new Articles();
+        $article->update(['status'=>time()+(86400*3)], ['id','=',$request['id']]);
+        $this->redirectBack();
+    }
+
 }

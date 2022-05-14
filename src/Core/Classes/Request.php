@@ -26,7 +26,10 @@ class Request
 
     public function post($key)
     {
-        return $this->post[$key];
+        if(array_key_exists($key, $this->post)) {
+            return $this->post[$key];
+        }
+        return null;
     }
 
     public function file($key)

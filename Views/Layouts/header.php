@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../../Resoures/my.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>!!!</title>
+    <script src="../../Resoures/jquery-3.6.0.min.js"></script>
+    <script src="../../Resoures/main.js"></script>
 </head>
 <body>
 
@@ -37,9 +39,11 @@
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
             </li>
+            <?if(isAdmin()):?>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
+                <a class="nav-link font-weight-bold" href="admin">Admin panel</a>
             </li>
+            <?endif;?>
             <li>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -80,33 +84,15 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-            <a href="#" class="nav-link active" aria-current="page">
+            <a href="/" class="nav-link active" aria-current="page">
                 <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                Home
+                Articles
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link link-dark">
+            <a href="users" class="nav-link link-dark">
                 <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                Dashboard
-            </a>
-        </li>
-        <li>
-            <a href="#" class="nav-link link-dark">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-                Orders
-            </a>
-        </li>
-        <li>
-            <a href="#" class="nav-link link-dark">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                Products
-            </a>
-        </li>
-        <li>
-            <a href="#" class="nav-link link-dark">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-                Customers
+                Users
             </a>
         </li>
     </ul>
